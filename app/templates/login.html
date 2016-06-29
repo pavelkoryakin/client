@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+	<body>
+			<div class="container">
+
+		    	<form class="form-signin" method="POST" action="/">
+				    {{ form.hidden_tag() }}
+			        <h2 class="form-signin-heading">Please sign in</h2>
+			        
+						{% with messages = get_flashed_messages() %}
+						{% if messages %}
+						<div class="alert alert-success" role="alert">
+						{% for message in messages %}
+						    {{ message }} <br/>
+						{% endfor %}
+						</div>
+						{% endif %}
+						{% endwith %}
+									        
+			        <label for="inputEmail" class="sr-only">{{ form.email.label }}</label>
+			        <div required autofocus>
+		        		{{ form.email(class="form-control", placeholder="Email address", id="inputEmail", type="email") }}
+			        </div>
+			        <label for="inputPassword" class="sr-only">Password</label>
+					<div required>
+		        		{{ form.password(type="password", id="inputPassword", class="form-control", placeholder="Password") }}
+					</div>
+			        <button class="btn btn-lg btn-primary btn-block" type="submit" value="go">Sign in</button>
+		      </form>
+		      
+			</div>
+	</body>
+{% endblock %}

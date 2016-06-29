@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+  <body role="document">
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/settings">Оптимизатор</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/settings">Настройки</a></li>
+            <li><a href="/helpdesk">Отзывы и предложения</a></li>
+            {% if g.user.is_authenticated() %}
+            <li><a href="{{ url_for('logout') }}">{{g.user.email}} - Выйти</a></li>
+            {% endif %}
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container theme-showcase" role="main">
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="alert alert-success" role="alert">
+    {% for message in messages %}
+        {{ message }} <br/>
+    {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+    	<h1>Инструкция</h1>
+	    <p>Оптимизатор работает только в Яндекс Директ и оптимизирует рекламный бюджет на основании показателей поведения (время, глубина, отказы) и одной цели. Поддержка показателей транзакций будет добавлена в будущем. Для подлючения заполните фору ниже. Все вопросы и предложения пишите в соотвествующий раздел.</p>
+    </div>
+
+
+    	<div class="page-header">
+		    <h1>Настройка аккаунтов</h1><a href="/new_account">Добавить новый аккаунт</a>
+    	</div>
+			{% for account in accounts %}
+				{% include 'account.html' %}
+			{% endfor %}
+	</body>
+{% endblock %}
